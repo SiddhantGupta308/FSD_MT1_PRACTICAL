@@ -37,7 +37,7 @@ app.post('/api/products', (req, res) => {
     };
 
     products.push(newProduct);
-    res.status(201).json(newProduct);
+    res.status(200).json(newProduct);
 });
 
 app.get('/api/products/filter', (req, res) => {
