@@ -40,6 +40,20 @@ app.post('/api/products', (req, res) => {
     res.status(201).json(newProduct);
 });
 
+app.get('/api/products/filter', (req, res) => {
+    const category = req.query.category;
+
+    if (!category) {
+        return res.status(400).json({ message: "Category is required" });
+    }
+
+    const filteredProducts = products.filter(
+        p => p.category.toLowerCase() === category.toLowerCase()
+    );
+
+    res.status(200).json(filteredProducts);
+});
+
 app.get('/api/products/:id', (req, res) => {
     const product = products.find(p => p.id === Number(req.params.id));
 
@@ -85,19 +99,6 @@ app.delete('/api/products/:id', (req, res) => {
     res.status(200).json({ message: "Product deleted successfully" });
 });
 
-app.get('/api/products/filter', (req, res) => {
-    const category = req.query.category;
-
-    if (!category) {
-        return res.status(400).json({ message: "Category is required" });
-    }
-
-    const filteredProducts = products.filter(
-        p => p.category.toLowerCase() === category.toLowerCase()
-    );
-
-    res.status(200).json(filteredProducts);
-});
 
 const PORT = 3000;
 
